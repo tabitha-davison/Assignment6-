@@ -36,5 +36,5 @@ function dVdt = string_rate_func01(t,V,string_params)
     d2Udt2(n) = ((U(n-1)-2*(U(n))+Uf)*Tf/dx + (dUdt(n-1)-2*dUdt(n)+dUfdt)*c/dx)/(M/n)
     
     %assemble state derivative
-    dVdt = [dUdt;d2Udt2];
+    dVdt = [dUdt;d2Udt2(:)];
 end
