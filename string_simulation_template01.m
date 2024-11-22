@@ -26,7 +26,7 @@ function string_simulation_template01()
     U0 = 0*[0.1,0.1,0.1]';
     dUdt0 = 0*[0.02,0.02,0.02]';
     V0 = [U0;dUdt0];
-    tspan = linspace(0,50,200);
+    tspan = linspace(0,50,2000);
     %run the integration
     my_rate_func = @(t_in,V_in) string_rate_func01(t_in,V_in,string_params);
     [tlist,Vlist] = ode45(my_rate_func,tspan,V0);

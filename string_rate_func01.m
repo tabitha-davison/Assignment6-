@@ -23,7 +23,6 @@ function dVdt = string_rate_func01(t,V,string_params)
     %unpack state variable
     U = V(1:n);
     dUdt = V((n+1):(2*n));
-    size(dUdt)
     Uf = Uf_func(t);
     dUfdt = dUfdt_func(t);
     %compute acceleration
