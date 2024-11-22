@@ -27,14 +27,25 @@ function dVdt = string_rate_func01(t,V,string_params)
     Uf = Uf_func(t);
     dUfdt = dUfdt_func(t);
     %compute acceleration
-    d2Udt2(1) = ((0-2*(U(1))+U(2))*Tf/dx + (0-2*dUdt(1)+dUdt(2))*c/dx)/(M/n);
+   
+    
+    LU = [0;U(1:(n-1))]-2*U+[U(2:n);Uf];
+    LdUdt = [0;dUdt(1:(n-1))]-2*dUdt+[dUdt(2:n);dUfdt];
 
-    for i=2:n-1
-        d2Udt2(i) = ((U(i-1)-2*(U(i))+U(i+1))*Tf/dx + (dUdt(i-1)-2*dUdt(i)+dUdt(i+1))*c/dx)/(M/n);
-    end
+    stiffness = Tf/dx;
+    damping = c/dx;
+    mass = M/n;
 
-    d2Udt2(n) = ((U(n-1)-2*(U(n)))*Tf/dx + (dUdt(n-1)-2*dUdt(n))*c/dx + Tf/dx*Uf + c/dx*dUfdt)/(M/n);
+    d2Udt2 = (stiffness*LU+damping*LdUdt)/mass;
+    
+    % d2Udt2(1) = ((0-2*(U(1))+U(2))*Tf/dx + (0-2*dUdt(1)+dUdt(2))*c/dx)/(M/n);
+
+    % for i=2:n-1
+    %     d2Udt2(i) = ((U(i-1)-2*(U(i))+U(i+1))*Tf/dx + (dUdt(i-1)-2*dUdt(i)+dUdt(i+1))*c/dx)/(M/n);
+    % end
+    % 
+    % d2Udt2(n) = ((U(n-1)-2*(U(n)))*Tf/dx + (dUdt(n-1)-2*dUdt(n))*c/dx + Tf/dx*Uf + c/dx*dUfdt)/(M/n);
     
     %assemble state derivative
-    dVdt = [dUdt;d2Udt2(:)];
+    dVdt = [dUdt;d2Udt2];
 end
