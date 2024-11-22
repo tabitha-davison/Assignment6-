@@ -13,18 +13,19 @@
 %M_mat: the n x n mass (inertia) matrix
 %K_mat: the n x n stiffness matrix
 function [M_mat,K_mat] = construct_2nd_order_matrices(string_params)
+   
     % construct the nxn discrete laplacian matrix
     n = string_params.n+2;
-    M = string_params.M;
-    I_n = eye(n); % build the nxn identity matrix
-    Tf = string_params.Tf;
-    dx = string_params.dx;
-    my_Laplacian = I_n*-2;
-    % doing this as subtracting deals with the weird edge cases
-    % that occur when n=1 and n=2
+    % Create the identity matrix
+    I_n = eye(n);
+    
+    % Construct the tridiagonal matrix using circshift
+    my_Laplacian = -2 * I_n + circshift(I_n, 1) + circshift(I_n, -1);
+    
     my_Laplacian(1,end) = my_Laplacian(1,end)-1; %delete unwanted 1 in top right corner
     my_Laplacian(end,1) = my_Laplacian(end,1)-1; %delete unwanted 1 in bottom right corner
-    M_mat = (M/n)*I_n;
-    K_mat = -(Tf/dx) * Q;
+
+    M_mat = string_params.M/n*I_n
+    K_mat = string_params.Tf/string_params.dx*my_Laplacian
 
 end
