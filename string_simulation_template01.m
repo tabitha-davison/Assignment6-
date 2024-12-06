@@ -1,11 +1,11 @@
 function string_simulation_template01()
     
-    mode_shape = 5;
-    num_masses = 3;
+    mode_shape = 3;
+    num_masses = 30;
     total_mass = 1;
-    tension_force = 30;
+    tension_force = 3000;
     string_length = 4;
-    damping_coeff = 0.01;
+    damping_coeff = 0.000001;
     dx = string_length/(num_masses+1);
     amplitude_Uf = 0.15;
     
@@ -18,14 +18,14 @@ function string_simulation_template01()
     string_params.c = damping_coeff;
     string_params.dx = dx;
     %initial conditions
-    U0 = 0*[0.1,0.1,0.1]';
-    dUdt0 = 0*[0.02,0.02,0.02]';
+    U0 = zeros(1,num_masses)';
+    dUdt0 = zeros(1,num_masses)';
     V0 = [U0;dUdt0];
     tspan = linspace(0,100,2000);
 
     [M_mat,K_mat] = construct_2nd_order_matrices(string_params);
 
-    [Ur_mat,lambda_mat] = eig(K_mat,M_mat)
+    [Ur_mat,lambda_mat] = eig(K_mat,M_mat);
 
     omega_Uf = sqrt(-lambda_mat(mode_shape,mode_shape))
     % omega_Uf = 0.3;
@@ -58,7 +58,8 @@ function string_simulation_template01()
     axis([0, 4, -1.5, 1.5])
 
     plot1 = plot(0,0,'r','LineWidth',2);
-    plot2 = plot(0,0,'ko','MarkerFaceColor','k','MarkerSize',5);
+    % plot2 = plot(0,0,'ko','MarkerFaceColor','k','MarkerSize',5);
+    plot2 = plot(0,0);
     plot3 = plot(0,0,'bo','MarkerFaceColor','b','MarkerSize',5);
 
     for i=1:length(tlist)
