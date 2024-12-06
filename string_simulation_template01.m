@@ -21,7 +21,7 @@ function string_simulation_template01()
     U0 = 0*[0.1,0.1,0.1]';
     dUdt0 = 0*[0.02,0.02,0.02]';
     V0 = [U0;dUdt0];
-    tspan = linspace(0,10,2000);
+    tspan = linspace(0,100,2000);
 
     [M_mat,K_mat] = construct_2nd_order_matrices(string_params);
 
