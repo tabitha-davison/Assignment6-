@@ -26,6 +26,6 @@ function [M_mat,K_mat] = construct_2nd_order_matrices(string_params)
     my_Laplacian(end,1) = my_Laplacian(end,1)-1; %delete unwanted 1 in bottom right corner
 
     M_mat = string_params.M/n*I_n;
-    K_mat = string_params.Tf/string_params.dx*my_Laplacian;
+    K_mat = -string_params.Tf/string_params.dx*my_Laplacian;
 
 end
