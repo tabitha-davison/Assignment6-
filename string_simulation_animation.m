@@ -2,7 +2,7 @@
 function string_simulation_animation()
 
     mode_shape = 1;
-    num_masses = 1000;
+    num_masses = 300;
     total_mass = 1;
     tension_force = 0.001;
     string_length = 6;
@@ -38,7 +38,7 @@ function string_simulation_animation()
 
    w = 1/omega_Uf;
     h =amplitude_Uf;
-    c = sqrt(tension_force/(total_mass/num_masses*dx));
+    c = sqrt(tension_force/(total_mass/string_length));
 
 %     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
     Uf_func = @(t_in) triangle_pulse(t_in,w,h)
@@ -92,7 +92,7 @@ function string_simulation_animation()
         end
 
          x_list = [x_list; x];
-% 
+
 %         delete(xlin);
 %         pause(0.1);
 %         xlin = xline(x);
