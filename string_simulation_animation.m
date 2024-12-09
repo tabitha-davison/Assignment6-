@@ -2,13 +2,13 @@
 function string_simulation_animation()
 
     mode_shape = 1;
-    num_masses = 300;
+    num_masses = 1000;
     total_mass = 1;
     tension_force = 0.001;
     string_length = 6;
     damping_coeff = 0;
     dx = string_length/(num_masses+1);
-    amplitude_Uf = 1;
+    amplitude_Uf = 0.75;
     
     %generate the struct
     string_params = struct();
@@ -90,14 +90,8 @@ function string_simulation_animation()
         x = 2*string_length - x;
 
         end
-% 
-%         x_list = [x_list, x];
-% 
-% 
-% 
-% %         if abs(x) < 0  
-% %             Uplot = -Uplot;
-% %         end
+
+         x_list = [x_list; x];
 % 
 %         delete(xlin);
 %         pause(0.1);
@@ -108,7 +102,6 @@ function string_simulation_animation()
         drawnow;
 
     end
-
 x_list
-
 end
+
