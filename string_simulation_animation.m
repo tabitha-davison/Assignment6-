@@ -1,8 +1,7 @@
-
 function string_simulation_animation()
 
     mode_shape = 1;
-    num_masses = 1000;
+    num_masses = 3000;
     total_mass = 1;
     tension_force = 0.001;
     string_length = 6;
@@ -28,42 +27,29 @@ function string_simulation_animation()
     [M_mat,K_mat] = construct_2nd_order_matrices(string_params);
 
     [Ur_mat,lambda_mat] = eig(K_mat,M_mat);
-    omega_Uf = sqrt(lambda_mat(mode_shape,mode_shape))
+    omega_Uf = sqrt(lambda_mat(mode_shape,mode_shape));
 
     %list of x points (including the two endpoints)
     xlist = linspace(0,string_length,num_masses+2);
-    
-%     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
-%     dUfdt_func = @(t_in) -omega_Uf*amplitude_Uf*sin(omega_Uf*t_in);
 
     w = 1/omega_Uf;
     h =amplitude_Uf;
     c = sqrt(tension_force/(total_mass/string_length));
 
-%     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
-    Uf_func = @(t_in) triangle_pulse(t_in,w,h)
-%     dUfdt_func = @(t_in) -omega_Uf*amplitude_Uf*sin(omega_Uf*t_in);
-    dUfdt_func = @(t_in) triangle_pulse_derivative(t_in,w,h)
+    Uf_func = @(t_in) b_spline_pulse(t_in,w,h);
+    dUfdt_func = @(t_in) b_spline_pulse_derivative(t_in,w,h);
 
     string_params.Uf_func = Uf_func;
     string_params.dUfdt_func = dUfdt_func;
-
-    subplot(2,1,1)
-    hold on
-    ydata = Ur_mat(:,mode_shape);
-    plot(xlist,ydata,'r','LineWidth',2);
-    plot(xlist(2:end-1),ydata(2:end-1),'ko','MarkerFaceColor','k','MarkerSize',5);
-    plot([xlist(1),xlist(end)],[ydata(1),ydata(end)],'bo','MarkerFaceColor','b','MarkerSize',5);
-    hold off
 
     %run the integration
     my_rate_func = @(t_in,V_in) string_rate_func01(t_in,V_in,string_params);
     [tlist,Vlist] = ode45(my_rate_func,tspan,V0);
 
     %your code to generate an animation of the system
-    subplot(2,1,2)
+    figure(1)
     hold on
-    axis([0, 4, -1.5, 1.5])
+    axis([0, string_length, -amplitude_Uf, amplitude_Uf])
 
     plot1 = plot(0,0,'r','LineWidth',2);
     % plot2 = plot(0,0,'ko','MarkerFaceColor','k','MarkerSize',5);
@@ -91,7 +77,7 @@ function string_simulation_animation()
             x = 2*string_length - x;
         end
 
-        x_list = [x_list, x]
+        x_list = [x_list, x];
 
         delete(xlin);
         xlin = xline(x);
