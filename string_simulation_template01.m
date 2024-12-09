@@ -1,6 +1,6 @@
 function string_simulation_template01()
     
-    mode_shape = 5;
+    mode_shape = 3;
     num_masses = 15;
     total_mass = 1;
     tension_force = 3;

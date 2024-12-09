@@ -10,8 +10,8 @@ function [X_n, resonant_frequency] = mod_anal_wave_eq(n, X, Bn_value, L, c)
 
 end
 
-function mode_shape_to_eig(n, X, Bn_value, L, c)
-    
-    [X_n, resonant_frequency] = mod_anal_wave_eq(n, X, Bn_value, L, c);
-    
-    
+% function mode_shape_to_eig(n, X, Bn_value, L, c)
+% 
+%     [X_n, resonant_frequency] = mod_anal_wave_eq(n, X, Bn_value, L, c);
+% 
+% end    
