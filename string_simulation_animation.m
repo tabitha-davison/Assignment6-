@@ -8,7 +8,7 @@ function string_simulation_animation()
     string_length = 6;
     damping_coeff = 0;
     dx = string_length/(num_masses+1);
-    amplitude_Uf = 1;
+    amplitude_Uf = 0.75;
     
     %generate the struct
     string_params = struct();
