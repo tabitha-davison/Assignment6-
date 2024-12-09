@@ -36,9 +36,9 @@ function string_simulation_animation()
 %     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
 %     dUfdt_func = @(t_in) -omega_Uf*amplitude_Uf*sin(omega_Uf*t_in);
 
-    w = 1/omega_Uf;
+   w = 1/omega_Uf;
     h =amplitude_Uf;
-    c = sqrt(tension_force/(total_mass/string_length));
+    c = sqrt(tension_force/(total_mass/num_masses*dx));
 
 %     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
     Uf_func = @(t_in) triangle_pulse(t_in,w,h)
