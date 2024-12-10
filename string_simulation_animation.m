@@ -1,7 +1,7 @@
 
 function string_simulation_animation()
 
-    mode_shape = 1;`
+    mode_shape = 1;
     num_masses = 3000;
     total_mass = 1;
     tension_force = 0.001;
@@ -100,6 +100,8 @@ function string_simulation_animation()
 
     end
 
-    [X_n, resonant_frequency] = mod_anal_wave_eq(mode_shape, x_list, 25, string_length, c)
+    [X_n, resonant_frequency] = mod_anal_wave_eq(mode_shape, x_list, 25, string_length, c);
+
+    cont_vs_discrete(X_n, Ur_mat, resonant_frequency, lambda_mat, 5)
 
 end
