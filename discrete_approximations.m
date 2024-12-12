@@ -33,7 +33,7 @@ function discrete_approximations(mode_shape, total_mass, string_length, tension_
         end
     end
 
-    figure(3);
+    figure(2);
     semilogy(discrete_range, relative_error, 'r-', 'LineWidth', 2);
     grid on;
     title('Approximation Error of Discrete Resonant Frequency');

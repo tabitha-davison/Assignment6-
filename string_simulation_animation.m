@@ -100,9 +100,7 @@ function string_simulation_animation()
 
     end
 
-    % [X_n, resonant_frequency] = mod_anal_wave_eq(mode_shape, x_list, 25, string_length, c);
-    % 
-    % cont_vs_discrete(X_n, Ur_mat, x_list, x_list, 5)
+    %% Wave Equation Modal Analysis
 
     % Discrete approximations plot
     discrete_approximations(mode_shape, total_mass, string_length, tension_force, damping_coeff)
@@ -110,7 +108,7 @@ function string_simulation_animation()
     % Harmonics
     % Generate plots for low and high numbers of masses
     
-    figure (2);
+    figure (3);
     tiledlayout(2, 1);
 
     % low number of masses
