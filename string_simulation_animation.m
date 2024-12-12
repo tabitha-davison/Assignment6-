@@ -22,13 +22,13 @@ function string_simulation_animation()
     U0 = zeros(1,num_masses)';
     dUdt0 = zeros(1,num_masses)';
     V0 = [U0;dUdt0];
-    tspan = linspace(0,1000,2000);
+    tspan = linspace(0,100,10);
 
 
     [M_mat,K_mat] = construct_2nd_order_matrices(string_params);
 
     [Ur_mat,lambda_mat] = eig(K_mat,M_mat);
-    omega_Uf = sqrt(lambda_mat(mode_shape,mode_shape))
+    omega_Uf = sqrt(lambda_mat(mode_shape,mode_shape));
 
     %list of x points (including the two endpoints)
     xlist = linspace(0,string_length,num_masses+2);
@@ -41,9 +41,9 @@ function string_simulation_animation()
     c = sqrt(tension_force/(total_mass/string_length));
 
 %     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
-    Uf_func = @(t_in) triangle_pulse(t_in,w,h)
+    Uf_func = @(t_in) triangle_pulse(t_in,w,h);
 %     dUfdt_func = @(t_in) -omega_Uf*amplitude_Uf*sin(omega_Uf*t_in);
-    dUfdt_func = @(t_in) triangle_pulse_derivative(t_in,w,h)
+    dUfdt_func = @(t_in) triangle_pulse_derivative(t_in,w,h);
 
     string_params.Uf_func = Uf_func;
     string_params.dUfdt_func = dUfdt_func;
@@ -91,7 +91,7 @@ function string_simulation_animation()
             x = 2*string_length - x;
         end
 
-        x_list = [x_list, x]
+        x_list = [x_list, x];
 
         delete(xlin);
         xlin = xline(x);
@@ -100,8 +100,25 @@ function string_simulation_animation()
 
     end
 
-    [X_n, resonant_frequency] = mod_anal_wave_eq(mode_shape, x_list, 25, string_length, c);
+    % [X_n, resonant_frequency] = mod_anal_wave_eq(mode_shape, x_list, 25, string_length, c);
+    % 
+    % cont_vs_discrete(X_n, Ur_mat, x_list, x_list, 5)
 
-    cont_vs_discrete(X_n, Ur_mat, resonant_frequency, lambda_mat, 5)
+    % Discrete approximations plot
+    discrete_approximations(mode_shape, total_mass, string_length, tension_force, damping_coeff)
+
+    % Harmonics
+    % Generate plots for low and high numbers of masses
+    
+    figure (2);
+    tiledlayout(2, 1);
+
+    % low number of masses
+    nexttile
+    harmonics(3, 10, total_mass, tension_force, string_length, c, 'Low Number of Masses')
+
+    % high number of masses
+    nexttile
+    harmonics(400, 10, total_mass, tension_force, string_length, c, 'High Number of Masses')
 
 end
