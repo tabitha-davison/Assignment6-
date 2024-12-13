@@ -1,3 +1,4 @@
+
 function string_simulation_animation()
 
     mode_shape = 1;
@@ -40,9 +41,9 @@ function string_simulation_animation()
     c = sqrt(tension_force/(total_mass/string_length));
 
 %     Uf_func = @(t_in) amplitude_Uf*cos(omega_Uf*t_in);
-    Uf_func = @(t_in) b_spline_pulse(t_in,w,h);
+    Uf_func = @(t_in) triangle_pulse(t_in,w,h);
 %     dUfdt_func = @(t_in) -omega_Uf*amplitude_Uf*sin(omega_Uf*t_in);
-    dUfdt_func = @(t_in) b_spline_pulse_derivative(t_in,w,h);
+    dUfdt_func = @(t_in) triangle_pulse_derivative(t_in,w,h);
 
     string_params.Uf_func = Uf_func;
     string_params.dUfdt_func = dUfdt_func;
@@ -101,10 +102,7 @@ function string_simulation_animation()
 
     %% Wave Equation Modal Analysis
 
-    figure(4)
-    cont_vs_discrete(mode_shape, 10, total_mass, string_length, tension_force, c);
-
-
+    Xn_continuous = cont_vs_discrete(mode_shape, 50, total_mass, string_length, tension_force, c, h);
 
     % Harmonics
     % Generate plots for low and high numbers of masses

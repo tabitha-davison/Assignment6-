@@ -10,7 +10,7 @@ function discrete_approximations(mode_shape, total_mass, string_length, tension_
 
     for i = discrete_range
         % Update system parameters for current number of masses
-        dx = string_length / (i + 1);
+        dx = string_length / (i + 1); 
         string_params = struct();
         string_params.n = i;
         string_params.M = total_mass;
