@@ -102,13 +102,10 @@ function string_simulation_animation()
 
     %% Wave Equation Modal Analysis
 
-    % Discrete approximations plot
-    discrete_approximations(mode_shape, total_mass, string_length, tension_force, damping_coeff)
-
     % Harmonics
     % Generate plots for low and high numbers of masses
     
-    figure (3);
+    figure (2);
     tiledlayout(2, 1);
 
     % low number of masses
@@ -118,5 +115,9 @@ function string_simulation_animation()
     % high number of masses
     nexttile
     harmonics(400, 10, total_mass, tension_force, string_length, c, 'High Number of Masses')
+
+    % Discrete approximations plot
+    discrete_approximations(mode_shape, total_mass, string_length, tension_force, damping_coeff)
+
 
 end
