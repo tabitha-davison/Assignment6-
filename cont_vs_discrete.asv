@@ -1,4 +1,4 @@
-function cont_vs_discrete(mode_shape, masses, total_mass, string_length, tension_force, c)
+function cont_vs_discrete(mode_shape, masses, total_mass, string_length, tension_force, c, title)
     
     x_values = linspace(0, string_length, masses + 2);
 
@@ -29,7 +29,7 @@ function cont_vs_discrete(mode_shape, masses, total_mass, string_length, tension
     hold on
     discrete_mode = M_mode(:,mode_shape);
     discrete_mode = (discrete_mode*(norm(Xn_continuous)/norm(discrete_mode)))';
-    plot(x_values,discrete_mode,'r','LineWidth',4);
+    plot(x_values,discrete_mode,'r','LineWidth',2);
     % plot(x_values(2:end-1),discrete_mode(2:end-1),'ko','MarkerFaceColor','k','MarkerSize',5);
     % plot([x_values(1),x_values(end)],[discrete_mode(1),discrete_mode(end)],'bo','MarkerFaceColor','b','MarkerSize',5);
 
@@ -37,7 +37,7 @@ function cont_vs_discrete(mode_shape, masses, total_mass, string_length, tension
     % plot(x_values(2:end-1),Xn_continuous(2:end-1),'ko','MarkerFaceColor','k','MarkerSize',5);
     % plot([x_values(1),x_values(end)],[Xn_continuous(1),Xn_continuous(end)],'bo','MarkerFaceColor','b','MarkerSize',5);
 
+    title(title)
     legend('Discrete', 'Continuous')
     hold off
-
 end

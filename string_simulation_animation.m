@@ -103,8 +103,11 @@ function string_simulation_animation()
 
     figure(4)
     cont_vs_discrete(mode_shape, 10, total_mass, string_length, tension_force, c);
-
-
+    
+    figure(5)
+    cont_vs_discrete(mode_shape, 600, total_mass, string_length, tension_force, c);
+    
+    
 
     % Harmonics
     % Generate plots for low and high numbers of masses
